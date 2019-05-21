@@ -6,16 +6,16 @@ app.set('port', process.env.PORT || 3000);
 app.locals.notes = [
   { 
     title: 'randomnote', 
-    id: "7b36eed8-16c6-4342-91c2-3d238e47abba", 
+    id: '1', 
     listItems: [
-      { id: 1, body: 'asdf', completed: false }
+      { id: '1', body: 'asdf', completed: false }
     ]
   },
   { 
     title: 'randomnoteTWO', 
-    id: "7b36eed8-16c6-4342-91c2-3d238e47abbb", 
+    id: '1', 
     listItems: [
-      { id: 2, body: 'asdf', completed: false }
+      { id: '1', body: 'asdf', completed: false }
     ]
   }
 ];
@@ -35,8 +35,15 @@ app.post('/api/v1/notes', (request, response) => {
   response.status(201).json({ id });
 })
 
-
+app.get('/api/v1/notes/:id', (request, response) => {
+  const id = request.params.id;
+  const note = app.locals.notes.find(note => note.id === id);
+  if (!note) {
+    return response.status(404).json({ error: 'No notes found'})
+  }
+  return response.status(200).json(note);
+})
 
 app.listen(app.get('port'), () => {
-  console.log('something running in 3000');
+  console.log('Something running in 3000');
 })
