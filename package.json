@@ -1,0 +1,25 @@
+{
+  "name": "trapper-keeper-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrennanDuffey/trapper-keeper-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrennanDuffey/trapper-keeper-api/issues"
+  },
+  "homepage": "https://github.com/BrennanDuffey/trapper-keeper-api#readme",
+  "dependencies": {
+    "express": "^4.17.0",
+    "joi": "^14.3.1"
+  }
+}
