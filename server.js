@@ -6,7 +6,7 @@ app.locals.notes = [
   {note: 'randomnote'}
 ];
 
-app.get('/', (request, response) => {
+app.get('/api/v1/notes', (request, response) => {
   const notes = app.locals.notes
   return response.status(200).json({ notes })
 });
