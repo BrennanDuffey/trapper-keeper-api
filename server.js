@@ -15,7 +15,7 @@ app.locals.notes = [
     title: 'randomnoteTWO', 
     id: '2', 
     listItems: [
-      { id: '2', body: 'asdf', completed: false }
+      { id: '2', body: 'asdf', completed: false }                           
     ]
   }
 ];
