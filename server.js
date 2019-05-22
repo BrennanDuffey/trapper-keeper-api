@@ -13,9 +13,9 @@ app.locals.notes = [
   },
   { 
     title: 'randomnoteTWO', 
-    id: '1', 
+    id: '2', 
     listItems: [
-      { id: '1', body: 'asdf', completed: false }
+      { id: '2', body: 'asdf', completed: false }
     ]
   }
 ];
@@ -33,6 +33,17 @@ app.post('/api/v1/notes', (request, response) => {
   note.id = id;
   app.locals.notes.push(note);
   response.status(201).json({ id });
+})
+
+app.delete('/api/v1/notes', (request, response) => {
+  const id = request.body.id;
+  const newNotes = app.locals.notes.filter(note => note.id !== id);
+  if (newNotes.length !== app.locals.notes.length) {
+    app.locals.notes = newNotes
+    response.status(202).json('Successfully deleted note');
+  } else {
+    return response.status(404).json({ error: 'No notes found'})
+  }
 })
 
 app.get('/api/v1/notes/:id', (request, response) => {
