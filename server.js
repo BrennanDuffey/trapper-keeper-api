@@ -68,5 +68,5 @@ app.put('/api/v1/notes/:id', (request, response) => {
 })
 
 app.listen(app.get('port'), () => {
-  console.log('Something running in 3000');
+  console.log(`Something is running on http://localhost:${app.get('port')}`);
 })
