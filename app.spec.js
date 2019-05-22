@@ -74,8 +74,48 @@ describe("API", () => {
       expect(response.body.id.length).toEqual(36);
     });
 
-    // it("return a status ", () => {
+    it("return a status 422 if all information not given with correct params ", async () => {
+      const note = {
+        title: "randomnote"
+      };
+      const response = await request(app)
+        .post("/api/v1/notes")
+        .send(note);
+      expect(response.statusCode).toBe(422);
+    });
+  });
 
-    // });
+  describe("PUT /api/v1/notes/:id", () => {
+      it("Should return a status of 202 with the correct message", async() => {
+          const updatedNote =  {
+            title: "What up randomNote",
+            id: "1",
+            listItems: [{ id: "1", body: "asdf", completed: false }]
+          }
+          const response = await request(app).put('/api/v1/notes/1').send(updatedNote);
+          expect(response.statusCode).toBe(202);
+          expect(app.locals.notes[0]).toEqual(updatedNote)
+      });
+
+      it('should return a status code of 422 when properties are incorrect', async() => {
+        const updatedNote =  {
+            titlrandome: "What up randomNote",
+            id: "1",
+            listItems: [{ id: "1", body: "asdf", completed: false }]
+          }
+          const response = await request(app).put('/api/v1/notes/1').send(updatedNote);
+          expect(response.statusCode).toBe(422);
+      });
+
+      it('should return a status code of 404 if it does not match at all', async() => {
+        const updatedNote =  {
+            title: "What up randomNote",
+            id: "1",
+            listItems: [{ id: "1", body: "asdf", completed: false }]
+          }
+          const response = await request(app).put('/api/v1/notes/9001').send(updatedNote);
+          expect(response.statusCode).toBe(404);
+      })
+
   });
 });
