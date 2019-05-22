@@ -115,7 +115,22 @@ describe("API", () => {
           }
           const response = await request(app).put('/api/v1/notes/9001').send(updatedNote);
           expect(response.statusCode).toBe(404);
+      });
+  });
+
+  describe("DELETE /api/v1/notes/:id", () => {
+      it('should return an status code of 204 and remove the note', async() => {
+          expect(app.locals.notes.length).toBe(2)
+          const response = await request(app).delete('/api/v1/notes/1').send()
+          expect(response.statusCode).toBe(204)
+          expect(app.locals.notes.length).toBe(1)
+      });
+
+      it('should return a status code of 404 and not remove the note', async() => {
+        const response = await request(app).delete('/api/v1/notes/9001').send()
+        expect(response.statusCode).toBe(404);
+        expect(app.locals.notes.length).toBe(2)
       })
 
-  });
+  })
 });
