@@ -28,11 +28,16 @@ app.get('/api/v1/notes', (request, response) => {
 });
 
 app.post('/api/v1/notes', (request, response) => {
-  const note = request.body;
   const id = uuidv4();
-  note.id = id;
-  app.locals.notes.push(note);
+  const {listItems, title} = request.body
+  if(!listItems || !title) return response.status(422).json('Please provide a title and a list item.')
+  const newNote = {
+    id,
+    ...request.body
+  }
+  app.locals.notes.push(newNote);
   response.status(201).json({ id });
+
 })
 
 app.delete('/api/v1/notes/:id', (request, response) => {

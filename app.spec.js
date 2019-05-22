@@ -1,7 +1,7 @@
 import request from "supertest";
 import "@babel/polyfill";
 import app from "./app";
-let uuidv4 = require('uuid/v4');
+let uuidv4 = require("uuid/v4");
 
 describe("API", () => {
   let notes;
@@ -48,26 +48,34 @@ describe("API", () => {
       expect(response.statusCode).toBe(404);
     });
   });
-  describe('POST /api/v1/notes', () => {
-      it('should return a status code of 201', async() => {
-        const note =   {
-            title: "randomnote",
-            id: "1",
-            listItems: [{ id: "1", body: "asdf", completed: false }]
-          }
-        const response = await request(app).post("/api/v1/notes").send(note);
-        expect(response.statusCode).toBe(201);
-      });
+  describe("POST /api/v1/notes", () => {
+    it("should return a status code of 201", async () => {
+      const note = {
+        title: "randomnote",
+        id: "1",
+        listItems: [{ id: "1", body: "asdf", completed: false }]
+      };
+      const response = await request(app)
+        .post("/api/v1/notes")
+        .send(note);
+      expect(response.statusCode).toBe(201);
+    });
 
-      it('should receive an id back', async() => {
-        const note =   {
-            title: "randomnote",
-            listItems: [{ id: "1", body: "asdf", completed: false }]
-          }
-        uuidv4 = jest.fn().mockImplementation(() => '10');  36
-        const response = await request(app).post("/api/v1/notes").send(note);
-        expect(response.body.id.length).toEqual(36)
-      })
-  })
+    it("should receive an id back", async () => {
+      const note = {
+        title: "randomnote",
+        listItems: [{ id: "1", body: "asdf", completed: false }]
+      };
+      uuidv4 = jest.fn().mockImplementation(() => "10");
+      36;
+      const response = await request(app)
+        .post("/api/v1/notes")
+        .send(note);
+      expect(response.body.id.length).toEqual(36);
+    });
 
+    // it("return a status ", () => {
+
+    // });
+  });
 });
