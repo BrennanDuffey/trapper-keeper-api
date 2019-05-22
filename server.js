@@ -55,6 +55,18 @@ app.get('/api/v1/notes/:id', (request, response) => {
   return response.status(200).json(note);
 })
 
+app.put('/api/v1/notes/:id', (request, response) => {
+  const newNote = request.body;
+  const id = request.params.id;
+  const updatedNotes = app.locals.notes.filter(note => note.id !== id);
+  if (updatedNotes.length !== app.locals.notes.length) {
+    app.locals.notes = [ ...updatedNotes, newNote ];
+    return response.status(202).json('Successfully edited note');
+  } else {
+    return response.status(404).json({ error: 'No notes found to edit'})
+  }
+})
+
 app.listen(app.get('port'), () => {
   console.log('Something running in 3000');
 })
