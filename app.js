@@ -30,14 +30,14 @@ app.get('/api/v1/notes', (request, response) => {
 app.post('/api/v1/notes', (request, response) => {
   const id = uuidv4();
   const {listItems, title} = request.body
-  if(!listItems || !title) return response.status(422).json('Please provide a title and a list item.')
+  if(!listItems && !title) return response.status(422).json('Please provide a title or a list item.')
   const newNote = {
     id,
-    ...request.body
+    title: title || '',
+    listItems: listItems || []
   }
   app.locals.notes.push(newNote);
-  response.status(201).json({ id });
-
+  response.status(201).json(newNote);
 })
 
 app.delete('/api/v1/notes/:id', (request, response) => {
