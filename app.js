@@ -67,15 +67,11 @@ app.put('/api/v1/notes/:id', (request, response) => {
   const updatedNotes = app.locals.notes.map(note => {
     if (note.id === id)  {
       noteWasFound = true;
-      return { title, listItems, id }
+      return { title: title || note.title, listItems: listItems || note.listItems, id: note.id }
     } else {
       return note
     }
   });
-
-  if (!title || !listItems) {
-    return response.status(422).json('Please provide title and listItems')
-  }
 
   if (!noteWasFound) {
     return response.status(404).json('No note found')
