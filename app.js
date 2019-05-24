@@ -36,7 +36,7 @@ app.post('/api/v1/notes', (request, response) => {
     ...request.body
   }
   app.locals.notes.push(newNote);
-  response.status(201).json({ id });
+  response.status(201).json(newNote);
 
 })
 
