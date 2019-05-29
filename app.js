@@ -33,11 +33,11 @@ app.post('/api/v1/notes', (request, response) => {
   if(!listItems && !title) return response.status(422).json('Please provide a title or a list item.')
   const newNote = {
     id,
-    ...request.body
+    title: title || '',
+    listItems: listItems || []
   }
-  app.locals.notes.push(newNote);
+  app.locals.notes.unshift(newNote);
   response.status(201).json(newNote);
-
 })
 
 app.delete('/api/v1/notes/:id', (request, response) => {
