@@ -36,7 +36,7 @@ app.post('/api/v1/notes', (request, response) => {
     title: title || '',
     listItems: listItems || []
   }
-  app.locals.notes.push(newNote);
+  app.locals.notes.unshift(newNote);
   response.status(201).json(newNote);
 })
 
