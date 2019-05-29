@@ -29,8 +29,8 @@ app.get('/api/v1/notes', (request, response) => {
 
 app.post('/api/v1/notes', (request, response) => {
   const id = uuidv4();
-  const {listItems, title} = request.body
-  if(!listItems || !title) return response.status(422).json('Please provide a title and a list item.')
+  const { listItems, title } = request.body
+  if(!listItems && !title) return response.status(422).json('Please provide a title or a list item.')
   const newNote = {
     id,
     ...request.body
